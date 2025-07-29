@@ -21,7 +21,7 @@ export class HomePage {
 			await link.waitFor({ state: 'visible' })
 		}
 		catch (error) {
-			throw new error('Site is down')
+			throw new Error('Site is down')
 		}
 	}
 
@@ -44,6 +44,12 @@ export class HomePage {
 		// Shpiing button Locator
 		const shoppingButton = this.page.getByRole('link', { name: 'Start Shopping »' })
 		return await shoppingButton.isVisible();
+
+	}
+	// Navigate to Contact Page wait for all the elements are render
+	async navigateToContactPage() {
+		await this.page.getByRole('link', { name: 'Contact' }).click();
+		await this.page.waitForLoadState('networkidle');
 
 	}
 

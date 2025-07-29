@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { HomePage } from '../Pages/HomePage'; // Ensure HomePage.ts exists in the same folder, or update the path accordingly
+import { HomePage } from '../Pages/HomePage';
+import { ContactPage } from '..//Pages/ContactPage';
 
 //Create the Test 
 test.describe('Jupitor Toys Homepage', () => {
@@ -7,6 +8,8 @@ test.describe('Jupitor Toys Homepage', () => {
     test('Check the Homepage Elements', async ({ page }) => {
         //New home page object
         const homepage = new HomePage(page);
+        const contactpage = new ContactPage(page);
+
         const url = process.env.TEST_URL!;
         //navigate to the home page and chek if its up and running 
         console.log('Navigate to Site Jupitor Toys')
@@ -23,7 +26,22 @@ test.describe('Jupitor Toys Homepage', () => {
         const isShopingButtonVisible = await homepage.isShoppingBtPresent()
         expect(isShopingButtonVisible).toBe(true);
         //take Screenshot
-        await page.screenshot(({ path: 'screenshots/HomepageElements.png' }))
+        //await page.screenshot(({ path: 'screenshots/HomepageElements.png' }))
+        //navigate to the Conatct Page
+        await homepage.navigateToContactPage();
+        //click submit
+        await contactpage.clickSubmit();
+        // check msgs
+        const headerError = await contactpage.getHeaderError();
+        console.log('Header error is ' + headerError);
+        //check the header error
+        expect(headerError).toContain("We welcome your feedback - but we won't get it unless you complete the form correctly.");
+        const formerror = await contactpage.getFormErrors();
+        console.log('FORM Errors:  ' + formerror);
+        //assert correct errors are dispalyed
 
+        expect(formerror).toContain('Forename is required');
+        expect(formerror).toContain('Email is required');
+        expect(formerror).toContain('Message is required');
     });
 });
