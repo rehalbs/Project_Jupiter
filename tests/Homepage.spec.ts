@@ -36,12 +36,35 @@ test.describe('Jupitor Toys Homepage', () => {
         console.log('Header error is ' + headerError);
         //check the header error
         expect(headerError).toContain("We welcome your feedback - but we won't get it unless you complete the form correctly.");
-        const formerror = await contactpage.getFormErrors();
-        console.log('FORM Errors:  ' + formerror);
-        //assert correct errors are dispalyed
 
-        expect(formerror).toContain('Forename is required');
-        expect(formerror).toContain('Email is required');
-        expect(formerror).toContain('Message is required');
+        //assert correct errors are dispalyed
+        const forenameErr = await contactpage.getForenamerrors();
+        const emailErr = await contactpage.getEmailErr();
+        const messageErr = await contactpage.getMsgErr();
+        expect.soft(forenameErr).toContain('Forename is required');
+        expect.soft(emailErr).toContain('Email is required');
+        expect.soft(messageErr).toContain('Message is required');
     });
+
+    test('Testcase 2 submit the form 5 times with 100% pass rate', async ({ page }) => {
+        const homepage = new HomePage(page);
+        const contactpage = new ContactPage(page);
+        const url = process.env.TEST_URL!;
+
+        await homepage.isSiteWorking(url);
+        await homepage.navigateToContactPage();
+
+        for (let i = 0; i < 5; i++) {
+            console.log(`🔄 Iteration ${i + 1} starting`);
+            try {
+                await contactpage.submitFeedback();
+                console.log(`Test pass no ${i + 1}`);
+            } catch (error) {
+                console.error(`Test failed at iteration ${i + 1}:`, error);
+                throw error; // or continue if you want to run remaining iterations
+            }
+        }
+
+    })
+
 });

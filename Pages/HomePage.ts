@@ -52,5 +52,10 @@ export class HomePage {
 		await this.page.waitForLoadState('networkidle');
 
 	}
+	//Navigate to Home Page 
+	async navgateToHome() {
+		await this.page.getByRole('link', { name: 'Home' }).click();
+		await this.page.waitForLoadState('networkidle');
+	}
 
 }
