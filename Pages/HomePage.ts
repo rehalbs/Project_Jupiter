@@ -14,14 +14,12 @@ import { Page, expect } from '@playwright/test'
 export class HomePage {
 	readonly page: Page;
 
-
 	//Constructor 
 	constructor(page: Page) {
 		this.page = page;
 	}
 
 	// check the siteis upand running
-
 	async isSiteWorking(url: string) {
 		try {
 			await this.page.goto(url)
@@ -33,9 +31,7 @@ export class HomePage {
 			throw new Error('Site is down')
 		}
 	}
-
 	//page locators with returns
-
 	async getHeader() {
 		//Headter locator Class then child element header
 
@@ -48,26 +44,19 @@ export class HomePage {
 		return await welcomeMessage.innerText();
 	}
 	// Check that the shopping button is enabled
-
-
 	// Navigate to Contact Page wait for all the elements are render
 	async navigateToContactPage() {
 		await this.page.getByRole('link', { name: 'Contact' }).click();
 		await this.page.waitForLoadState('networkidle');
-
 	}
 	//Navigate to Home Page 
 	async navgateToHome() {
 		await this.page.getByRole('link', { name: 'Home' }).click();
 		await this.page.waitForLoadState('networkidle');
 	}
-
 	//Navigate to shop Page
-
 	async navigateToShopPage() {
-
 		await this.page.getByRole('link', { name: 'Shop' }).click();
 		await this.page.waitForLoadState('networkidle');
 	}
-
 }

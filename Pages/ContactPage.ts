@@ -37,7 +37,7 @@ export class ContactPage {
             throw new Error('Failed to click submit button');
         }
     }
-    // capture the Haeder error message after clicking the submit button
+    // capture the Header error message after clicking the submit button
     async getHeaderError() {
         const errorLocator = this.page.getByText('We welcome your feedback -');
         const errorText = await errorLocator.innerText();
@@ -55,16 +55,15 @@ export class ContactPage {
         await emailErr.waitFor({ state: 'visible' })
         return await emailErr.innerText();
     }
-
     // Capture the Form message errors.
     async getMsgErr() {
         const messageErr = this.page.locator('#message-err');
         await messageErr.waitFor({ state: 'visible' });
         return await messageErr.innerText();
     }
-
     //fill the form 
     async submitFeedback() {
+        // Locators
         const homepage = new HomePage(this.page);
         const forenameInput = this.page.locator('#forename');
         const emailInput = this.page.locator('#email');
@@ -72,48 +71,33 @@ export class ContactPage {
         const submitButton = this.page.getByRole('link', { name: 'Submit' });
         const successMessage = this.page.locator('.alert.alert-success strong');
         const backButton = this.page.locator('a.btn', { hasText: '« Back' });
-
+        // assign the values to locators
         const forename = faker.person.firstName();
         const email = faker.internet.email();
         const message = faker.lorem.sentence();
-
         // Ensure form is visible before proceeding
         await expect(forenameInput).toBeVisible({ timeout: 5000 });
         await expect(emailInput).toBeVisible({ timeout: 5000 });
-
+        // Fill the Feedback Form
         await forenameInput.click();
         await forenameInput.fill(forename);
-
         await emailInput.click();
         await emailInput.fill(email);
-
         await messageInput.click();
         await messageInput.fill(message);
-
         await submitButton.click();
-
         // Wait for popup
         const sendingPopup = this.page.locator('div').filter({ hasText: 'Sending Feedback' }).nth(1);
         await expect(sendingPopup).toBeVisible({ timeout: 10000 });
         await expect(sendingPopup).toBeHidden({ timeout: 45000 });
-
         const popup = this.page.locator('div.popup.modal');
-
-        //Optional: wait for it to appear (in case it’s not instant)
-        // await popup.waitFor({ state: 'visible', timeout: 10000 });
-
-        // Wait for it to become hidden (after feedback sent)
-        //await popup.waitFor({ state: 'hidden', timeout: 45000 });
-
+        // Check Success Message displayed
         await expect(successMessage).toHaveText(`Thanks ${forename}`, { timeout: 5000 });
         console.log(` Success message confirmed for: ${forename}`);
-        // await this.page.waitForTimeout(3000);
-
         // Navigate back to form page
         await homepage.navgateToHome();
         await homepage.navigateToContactPage();
         await this.page.waitForLoadState('networkidle');
-
         // Confirm page is ready for next iteration
         //await expect(forenameInput).toBeVisible({ timeout: 5000 });
     }

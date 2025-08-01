@@ -1,25 +1,24 @@
-# Project_Jupiter
-# Planit_Assessment
-# Test case 1:
+## Project_Jupiter - Planit_Assessment
+### Test case 1:
 From the home page go to contact page
 Click submit button
 Verify error messages
 Populate mandatory fields
 Validate errors are gone
-# Test case 2:
+### Test case 2:
 1. From the home page go to contact page
 2. Populate mandatory fields
 3. Click submit button
 4. Validate successful submission message
 Note: Run this test 5 times to ensure 100% pass rate
-# Test case 3:
+### Test case 3:
 Buy 2 Stuffed Frog, 5 Fluffy Bunny, 3 Valentine Bear
 Go to the cart page
 Verify the subtotal for each product is correct
 Verify the price for each product
 Verify that total = sum(sub totals)
 
-# 🎭 Jupiter Toys Playwright Test Suite
+### Jupiter Toys Playwright Test Suite
 
 This project is an automated end-to-end test suite for the Jupiter Toys website using [Microsoft Playwright](https://playwright.dev/).
 
@@ -34,7 +33,7 @@ Project_Jupiter/
 ├── playwright.config.ts
 └── README.md
 ```
-## Features
+### Features
 
  Uses Playwright with TypeScript
  Structured using Page Object Model (POM)
@@ -42,7 +41,7 @@ Project_Jupiter/
  Uses `.env` file to define environment variables (like `TEST_URL`)
  Includes console logging and error handling for easier debugging
 
-## 🔧 Setup & Installation
+###  Setup & Installation
 
 1. Install dependencies:
 
@@ -63,7 +62,7 @@ Project_Jupiter/
    ]
 
 
-## 🚀 Running Tests
+### Running Tests
 
  Run the full suite:
   ```bash
@@ -78,7 +77,7 @@ Project_Jupiter/
   npx playwright test --ui
   ```
 
-## Debugging & Reporting
+### Debugging & Reporting
 
  Console logs are included for:
 

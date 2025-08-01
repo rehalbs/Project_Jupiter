@@ -26,18 +26,16 @@ export class ShoppingPage {
 
     async buyToys(name: string, quantity: number): Promise<void> {
         console.log(`Attempting to buy ${quantity} of "${name}"`);
-
-        // Wait for the list to appear
+        // Wait for the list to appear to ensure page is rendered
         await this.page.waitForSelector('li.product');
-
+        // Check how many products on the page , and keep the count
         const productCards = this.page.locator('li.product');
         const count = await productCards.count();
         console.log(`Total product cards found: ${count}`);
-
-        // Get all product titles text to debug
+        // Retrieves the visible names of all toys
         const titles = await productCards.locator('h4.product-title').allTextContents();
         console.log('All product titles found on page:', titles);
-
+        //iterate through the products and buy the required product and quantity
         for (let i = 0; i < count; i++) {
             const titleLocator = productCards.nth(i).locator('h4.product-title');
             const title = await titleLocator.textContent();
@@ -52,9 +50,7 @@ export class ShoppingPage {
                 console.log(`Finished buying ${quantity} of "${name}"`);
                 return;
             }
-        }
-
-        throw new Error(`Product "${name}" not found in product cards`);
+        } throw new Error(`Product "${name}" not found in product cards`);
     }
 }
 
