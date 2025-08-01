@@ -1,4 +1,14 @@
-//Contact Page
+/**
+ * ContactPage Class
+ * 
+ * Handles interactions with the contact/feedback page, including form submission,
+ * validation of error messages for mandatory fields, and retrieving feedback messages.
+ * 
+ * Author: Barry Singh  
+ * Version: 1.0  
+ * Created: 01 August 2025
+ */
+
 import { Page, expect } from '@playwright/test';
 import { error } from 'console';
 import { faker } from '@faker-js/faker';

@@ -1,5 +1,14 @@
-/* Home Page Object class for jupitor toys 
-*/
+/**
+ * HomePage Class
+ * 
+ * Manages interactions with the homepage, including site availability checks,
+ * header text retrieval, navigation to other pages, and welcome message validation.
+ * 
+ * Author: Barry Singh  
+ * Version: 1.0  
+ * Created: 01 August 2025
+ */
+
 import { Page, expect } from '@playwright/test'
 
 export class HomePage {
@@ -40,12 +49,7 @@ export class HomePage {
 	}
 	// Check that the shopping button is enabled
 
-	async isShoppingBtPresent() {
-		// Shpiing button Locator
-		const shoppingButton = this.page.getByRole('link', { name: 'Start Shopping »' })
-		return await shoppingButton.isVisible();
 
-	}
 	// Navigate to Contact Page wait for all the elements are render
 	async navigateToContactPage() {
 		await this.page.getByRole('link', { name: 'Contact' }).click();
@@ -55,6 +59,14 @@ export class HomePage {
 	//Navigate to Home Page 
 	async navgateToHome() {
 		await this.page.getByRole('link', { name: 'Home' }).click();
+		await this.page.waitForLoadState('networkidle');
+	}
+
+	//Navigate to shop Page
+
+	async navigateToShopPage() {
+
+		await this.page.getByRole('link', { name: 'Shop' }).click();
 		await this.page.waitForLoadState('networkidle');
 	}
 
