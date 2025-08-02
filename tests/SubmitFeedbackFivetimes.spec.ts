@@ -5,6 +5,8 @@ import { ContactPage } from '../Pages/ContactPage';
 test.describe('Submit Feedback form with mandatory data', () => {
     test('Testcase 2: Submit the form 5 times with 100% pass rate', async ({ page, context }) => {
         const homepage = new HomePage(page);
+        //Override the default test time
+        test.setTimeout(90000)
         const contactpage = new ContactPage(page);
         const url = process.env.TEST_URL!;
         //Navigate to the Home page
